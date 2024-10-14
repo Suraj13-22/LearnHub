@@ -77,8 +77,9 @@ A comprehensive learning platform offering a variety of courses to enhance your 
 ## Usage
 
 1. **Frontend**: 
-   - Navigate to `http://localhost:3000` in your browser to access the learning platform.
+   - Navigate to `http://localhost:5173` in your browser to access the learning platform.
    - Register or log in to view and enroll in courses.
 
 2. **Backend API**: 
+    - for example
    - Access the RESTful API at `http://localhost:5000/api`.
