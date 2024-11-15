@@ -7,15 +7,18 @@ const registerUser = async (req, res) => {
 
   const existingUser = await User.findOne({
     $or: [{ userEmail }, { userName }],
-  });
-
+  }); 
+  
+ 
   if (existingUser) {
+    
+    console.log("User name or user email already exists")
     return res.status(400).json({
       success: false,
       message: "User name or user email already exists",
     });
   }
-
+  
   const hashPassword = await bcrypt.hash(password, 10);
   const newUser = new User({
     userName,
@@ -25,10 +28,12 @@ const registerUser = async (req, res) => {
   });
 
   await newUser.save();
-
+  
+  console.log("User registered successfully!")
   return res.status(201).json({
     success: true,
     message: "User registered successfully!",
+    
   });
 };
 
@@ -38,6 +43,7 @@ const loginUser = async (req, res) => {
   const checkUser = await User.findOne({ userEmail });
 
   if (!checkUser || !(await bcrypt.compare(password, checkUser.password))) {
+   console.log("INVALID Credential")
     return res.status(401).json({
       success: false,
       message: "Invalid credentials",
@@ -54,7 +60,7 @@ const loginUser = async (req, res) => {
     "JWT_SECRET",
     { expiresIn: "120m" }
   );
-
+  console.log("Logged in successfully")
   res.status(200).json({
     success: true,
     message: "Logged in successfully",

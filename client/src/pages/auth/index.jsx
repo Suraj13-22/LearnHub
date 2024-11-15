@@ -44,7 +44,7 @@ function AuthPage() {
       signUpFormData.password !== ""
     );
   }
-
+  
   console.log(signInFormData);
 
   return (
@@ -101,13 +101,16 @@ function AuthPage() {
                   formData={signUpFormData}
                   setFormData={setSignUpFormData}
                   isButtonDisabled={!checkIfSignUpFormIsValid()}
-                  handleSubmit={handleRegisterUser}
+                  handleSubmit={handleRegisterUser} 
                 />
               </CardContent>
+              
             </Card>
           </TabsContent>
         </Tabs>
+      
       </div>
+      
     </div>
   );
 }

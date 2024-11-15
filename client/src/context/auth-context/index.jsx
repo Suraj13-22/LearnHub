@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { Skeleton } from "@/components/ui/skeleton";
 import { initialSignInFormData, initialSignUpFormData } from "@/config";
 import { checkAuthService, loginService, registerService } from "@/services";
@@ -16,24 +17,78 @@ export default function AuthProvider({ children }) {
 
   async function handleRegisterUser(event) {
     event.preventDefault();
-    const data = await registerService(signUpFormData);
+    try {
+      const data = await registerService(signUpFormData);
+      if (data.success) {
+        Swal.fire({
+          title: "Success!",
+          text: "Registration completed successfully!",
+          icon: "success",
+          confirmButtonText: "OK",
+          timer: 3000,
+        });
+        setSignUpFormData(initialSignUpFormData); // Reset the form data
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: data.message || "Registration failed.",
+          icon: "error",
+          confirmButtonText: "Try Again",
+        });
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Email or User already exit. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    }
   }
 
   async function handleLoginUser(event) {
     event.preventDefault();
-    const data = await loginService(signInFormData);
-    console.log(data, "datadatadatadatadata");
+    try {
+      const data = await loginService(signInFormData);
+      console.log(data, "datadatadatadatadata");
 
-    if (data.success) {
-      sessionStorage.setItem(
-        "accessToken",
-        JSON.stringify(data.data.accessToken)
-      );
-      setAuth({
-        authenticate: true,
-        user: data.data.user,
+      if (data.success) {
+        Swal.fire({
+          title: "Welcome!",
+          text: "Login successful!",
+          icon: "success",
+          timer: 3000,
+          confirmButtonText: "Let's Go",
+        });
+        sessionStorage.setItem(
+          "accessToken",
+          JSON.stringify(data.data.accessToken)
+        );
+        setAuth({
+          authenticate: true,
+          user: data.data.user,
+        });
+      } else {
+        Swal.fire({
+          title: "Login Failed!",
+          text: data.message || "Invalid credentials.",
+          icon: "error",
+          confirmButtonText: "Retry",
+        });
+        setAuth({
+          authenticate: false,
+          user: null,
+        });
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
       });
-    } else {
       setAuth({
         authenticate: false,
         user: null,
@@ -41,8 +96,7 @@ export default function AuthProvider({ children }) {
     }
   }
 
-  //check auth user
-
+  // Check authenticated user
   async function checkAuthUser() {
     try {
       const data = await checkAuthService();

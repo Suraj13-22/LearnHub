@@ -1,3 +1,4 @@
+
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (token, secretKey) => {
@@ -24,6 +25,7 @@ const authenticate = (req, res, next) => {
 
     next();
   } catch (e) {
+    
     return res.status(401).json({
       success: false,
       message: "invalid token",

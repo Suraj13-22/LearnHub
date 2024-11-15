@@ -6,15 +6,21 @@ import { BrowserRouter } from "react-router-dom";
 import AuthProvider from "./context/auth-context/index.jsx";
 import InstructorProvider from "./context/instructor-context/index.jsx";
 import StudentProvider from "./context/student-context/index.jsx";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
+    
     <AuthProvider>
       <InstructorProvider>
         <StudentProvider>
-          <App />
+            
+            <App/>
+          
         </StudentProvider>
       </InstructorProvider>
     </AuthProvider>
+   
   </BrowserRouter>
 );

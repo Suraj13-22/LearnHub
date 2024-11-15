@@ -16,7 +16,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 app.use(
   cors({
-    // origin: process.env.CLIENT_URL,
+  //  origin: process.env.CLIENT_URL,
     origin:true,
     methods: ["GET", "POST", "DELETE", "PUT"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -31,7 +31,7 @@ mongoose
   .then(() => console.log("mongodb is connected"))
   .catch((e) => console.log(e));
 
-//routes configuration
+//routes configuration 
 app.use("/auth", authRoutes);
 app.use("/media", mediaRoutes);
 app.use("/instructor/course", instructorCourseRoutes);
