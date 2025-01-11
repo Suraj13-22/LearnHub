@@ -46,7 +46,7 @@ const getAllStudentViewCourses = async (req, res) => {
         sortParam.pricing = 1;
         break;
     }
-
+    
     const coursesList = await Course.find(filters).sort(sortParam);
 
     res.status(200).json({
@@ -96,7 +96,7 @@ const checkCoursePurchaseInfo = async (req, res) => {
     });
 
     const ifStudentAlreadyBoughtCurrentCourse =
-      studentCourses.courses.findIndex((item) => item.courseId === id) > -1;
+      studentCourses?.courses.findIndex((item) => item.courseId === id) > -1;
     res.status(200).json({
       success: true,
       data: ifStudentAlreadyBoughtCurrentCourse,

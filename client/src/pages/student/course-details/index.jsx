@@ -39,6 +39,7 @@ function StudentViewCourseDetailsPage() {
   const [approvalUrl, setApprovalUrl] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
+  console.log(id);
   const location = useLocation();
 
   async function fetchStudentViewCourseDetails() {

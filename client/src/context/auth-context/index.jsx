@@ -40,7 +40,7 @@ export default function AuthProvider({ children }) {
       console.error("Error during registration:", error);
       Swal.fire({
         title: "Error!",
-        text: "Something went wrong. Please try again.",
+        text: "Email or user exit.",
         icon: "error",
         confirmButtonText: "OK",
       });

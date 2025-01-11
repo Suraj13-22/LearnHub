@@ -144,6 +144,7 @@ function VideoPlayer({
         volume={volume}
         muted={muted}
         onProgress={handleProgress}
+        
       />
       {showControls && (
         <div
